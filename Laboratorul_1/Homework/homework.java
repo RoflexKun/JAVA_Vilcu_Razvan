@@ -6,7 +6,7 @@ public class homework {
             System.out.println("Not enough arguments!");
             System.exit(-1);
         }
-
+        long time_start_execution = System.currentTimeMillis();
         int nodes = Integer.parseInt(args[0]);
         int k = Integer.parseInt(args[1]);
 
@@ -40,9 +40,18 @@ public class homework {
             }
         }
         homework obj = new homework();
-        obj.printMatrix(matrix, nodes);
-        obj.displayEdges(matrix, nodes);
+        if(nodes <= 30000)
+            obj.printMatrix(matrix, nodes);
+        System.out.println(obj.numberOfEdges(matrix, nodes));
         obj.displayMaximumDegree(matrix, nodes);
+        obj.displayMinimumDegree(matrix, nodes);
+        obj.verifyDegrees(matrix, nodes);
+
+        if(nodes > 30000)
+        {
+            long time_finish_execution = System.currentTimeMillis();
+            System.out.println("Time of execution: " + (time_finish_execution - time_start_execution)/1000 + " seconds");
+        }
 
     }
 
@@ -58,7 +67,7 @@ public class homework {
         }
     }
 
-    void displayEdges(int[][] matrix, int nodes)
+    int numberOfEdges(int[][] matrix, int nodes)
     {
         int count = 0;
         for(int i = 1; i <= nodes; i++)
@@ -69,7 +78,7 @@ public class homework {
                     count++;
             }
         }
-        System.out.println(count);
+        return count;
     }
 
     void displayMaximumDegree(int[][] matrix, int nodes)
@@ -88,4 +97,39 @@ public class homework {
         }
         System.out.println(maxi);
     }
+
+    void displayMinimumDegree(int[][]matrix, int nodes)
+    {
+        int mini = nodes;
+        for(int i = 1; i <= nodes; i++)
+        {
+            int count = 0;
+            for(int j = 1; j <= nodes; j++)
+            {
+                if(matrix[i][j] == 1)
+                    count++;
+            }
+            if(count < mini)
+                mini = count;
+        }
+        System.out.println(mini);
+    }
+
+    void verifyDegrees(int[][] matrix, int nodes)
+    {
+        int count = 0;
+        for(int i = 1; i <= nodes; i++) {
+            for (int j = i+1; j <= nodes; j++)
+                if (matrix[i][j] == 1)
+                    count += 2;
+        }
+        homework obj = new homework();
+        if(count == 2 * obj.numberOfEdges(matrix, nodes))
+            System.out.println("Total number of degrees: " + count);
+        else
+            System.out.println("Total number of degrees is not 2 * number of edges");
+    }
+
+
+
 }
