@@ -111,7 +111,6 @@ public class homework {
             }
             if(count < mini)
                 mini = count;
-
         }
         System.out.println("δ(G): " + mini);
     }
