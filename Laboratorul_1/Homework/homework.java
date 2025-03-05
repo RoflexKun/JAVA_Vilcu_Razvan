@@ -95,7 +95,7 @@ public class homework {
             if(count > maxi)
                 maxi = count;
         }
-        System.out.println(maxi);
+        System.out.println("Δ(G): " + maxi);
     }
 
     void displayMinimumDegree(int[][]matrix, int nodes)
@@ -112,7 +112,7 @@ public class homework {
             if(count < mini)
                 mini = count;
         }
-        System.out.println(mini);
+        System.out.println("δ(G): " + mini);
     }
 
     void verifyDegrees(int[][] matrix, int nodes)
