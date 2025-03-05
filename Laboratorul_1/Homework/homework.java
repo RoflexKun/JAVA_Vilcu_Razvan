@@ -16,7 +16,7 @@ public class homework {
         {
             for(int j = i+1; j <= k; j++)
             {
-                matrix[i][j] = matrix[j][i] = 1;
+                matrix[i][j] = matrix[j][i] = 0;
             }
         }
 
@@ -24,13 +24,13 @@ public class homework {
         {
             for(int j = i + 1; j <= 2*k; j++)
             {
-                matrix[i][j] = matrix[j][i] = 0;
+                matrix[i][j] = matrix[j][i] = 1;
             }
         }
 
         for(int i = 2 * k + 1; i < nodes; i++)
         {
-            for(int j = i + 1; j <= nodes; j++)
+            for(int j = 1; j <= nodes; j++)
             {
                 double temp = Math.random();
                 if(temp < 0.5)
