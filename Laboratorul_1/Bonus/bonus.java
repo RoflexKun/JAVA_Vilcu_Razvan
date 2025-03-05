@@ -44,13 +44,13 @@ public class bonus
 
         bonus method_calling = new bonus();
         int[] nodesInSubgraph = new int[nodes + 1];
-        int[] nodesAddedInSubraph = new int[k];
-        method_calling.printMatrix(matrix);
+        int[] nodesAddedInSubraph = new int[nodes];
+        method_calling.printMatrix(matrix, nodes);
         method_calling.createSubgraph(matrix, nodes, k, 0, nodesInSubgraph, nodesAddedInSubraph);
 
     }
 
-    public void printMatrix(int[][] matrix)
+    public void printMatrix(int[][] matrix, int nodes)
     {
         for(int i = 1 ; i <= nodes; i++)
         {
@@ -62,13 +62,10 @@ public class bonus
 
     public void createSubgraph(int[][] matrix, int nodes, int k, int nodesAdded, int[] nodesInSubgraph, int[] nodesAddedInSubraph)
     {
-        if(nodesAdded == k)
-        {
-            verifyClique(matrix, k, nodesAddedInSubraph);
-            verifyStableSet(matrix, k, nodesAddedInSubraph);
+        if(nodesAdded >= k) {
+            verifyClique(matrix, nodesAdded, nodesAddedInSubraph);
+            verifyStableSet(matrix, nodesAdded, nodesAddedInSubraph);
         }
-        else
-        {
             for(int i = (nodesAdded == 0 ? 1 : nodesAddedInSubraph[nodesAdded - 1] + 1); i <= nodes; i++)
             {
                 if(nodesInSubgraph[i] == 0)
@@ -80,15 +77,15 @@ public class bonus
                     nodesInSubgraph[i] = 0;
                 }
             }
-        }
+
     }
 
-    public void verifyClique(int[][] matrix, int k, int[] nodesAddedInSubgraph)
+    public void verifyClique(int[][] matrix, int numberOfNodes, int[] nodesAddedInSubgraph)
     {
         boolean isClique = true;
-        for(int i = 0; i < k - 1; i++)
+        for(int i = 0; i < numberOfNodes - 1; i++)
         {
-            for(int j = i + 1; j < k; j++)
+            for(int j = i + 1; j < numberOfNodes; j++)
             {
                 if(matrix[nodesAddedInSubgraph[i]][nodesAddedInSubgraph[j]] == 0)
                 {
@@ -101,16 +98,19 @@ public class bonus
         }
         if(isClique)
         {
-            System.out.println("Clique: " + Arrays.toString(nodesAddedInSubgraph));
+            System.out.print("Clique: ");
+            for(int i = 0; i < numberOfNodes; i++)
+                System.out.print(nodesAddedInSubgraph[i] + " ");
+            System.out.println();
         }
     }
 
-    public void verifyStableSet(int[][] matrix, int k, int[] nodesAddedInSubgraph)
+    public void verifyStableSet(int[][] matrix, int numberOfNodes, int[] nodesAddedInSubgraph)
     {
         boolean isStableSet = true;
-        for(int i = 0; i < k - 1; i++)
+        for(int i = 0; i < numberOfNodes - 1; i++)
         {
-            for(int j = i + 1; j < k; j++)
+            for(int j = i + 1; j < numberOfNodes; j++)
             {
                 if(matrix[nodesAddedInSubgraph[i]][nodesAddedInSubgraph[j]] == 1)
                 {
@@ -123,7 +123,10 @@ public class bonus
         }
         if(isStableSet)
         {
-            System.out.println("Stable set: " + Arrays.toString(nodesAddedInSubgraph));
+            System.out.print("Stable Set: ");
+            for(int i = 0; i < numberOfNodes; i++)
+                System.out.print(nodesAddedInSubgraph[i] + " ");
+            System.out.println();
         }
     }
 }
